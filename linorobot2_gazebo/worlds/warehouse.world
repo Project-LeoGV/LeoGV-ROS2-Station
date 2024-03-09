@@ -10,12 +10,12 @@
     </physics>
 
     
-        <model name="aws_robomaker_warehouse_RoofB_01_001">
+        <!--model name="aws_robomaker_warehouse_RoofB_01_001">
         <include>
             <uri>model://aws_robomaker_warehouse_RoofB_01</uri>
         </include>
         <pose frame="">0.0 0.0 0 0 0 0</pose>
-	</model>
+	</model-->
 
         <model name="aws_robomaker_warehouse_ShelfF_01_001">
         <include>
@@ -232,6 +232,13 @@
       <direction>0.1 0.1 -1</direction>
     </light>
 
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>-3.552760 -0.953328 31.657715 0 1.57 0</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
 
   </world>
 </sdf>
