@@ -7,7 +7,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     rviz_config_path = PathJoinSubstitution(
-        [FindPackageShare('linorobot2_viz'), 'rviz', 'description.rviz']
+        [FindPackageShare('linorobot2_navigation'), 'rviz', 'description.rviz']
     )
 
     return LaunchDescription([

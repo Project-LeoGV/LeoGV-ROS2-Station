@@ -123,7 +123,6 @@
           <joint_name>lift_plate_to_base_joint</joint_name>
           <joint_name>left_wheel_joint</joint_name>
           <joint_name>right_wheel_joint</joint_name>
-          <joint_name>lift_plate_to_base_joint</joint_name>
       </plugin>
   </gazebo>
   
