@@ -23,7 +23,7 @@ from launch_ros.actions import Node
 from launch.conditions import IfCondition, UnlessCondition
 
 
-MAP_NAME='playground' #change to the name of your own map here
+MAP_NAME='warehouse-10-3' #change to the name of your own map here
 
 def generate_launch_description():
     depth_sensor = os.getenv('LINOROBOT2_DEPTH_SENSOR', '')
