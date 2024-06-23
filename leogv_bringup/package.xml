@@ -20,6 +20,7 @@
   <exec_depend>rqt_image_view</exec_depend>
   <exec_depend>image_proc</exec_depend>
   <exec_depend>depth_image_proc</exec_depend>
+  <exec_depend>camera_simulator</exec_depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>

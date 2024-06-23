@@ -23,7 +23,7 @@ from launch.conditions import IfCondition, UnlessCondition
 
 def generate_launch_description():
 
-    video_path = '/dev/video0'
+    video_path = '/home/nadamamdouh/Videos/Screencasts/RP_Robot.webm' #'/dev/video0'
 
     sensors_launch_path = PathJoinSubstitution(
         [FindPackageShare('leogv_bringup'), 'launch', 'sensors.launch.py']
@@ -75,6 +75,12 @@ def generate_launch_description():
             description='Launch description launch file'
         ),
 
+        DeclareLaunchArgument(
+            name='frame_id', 
+            default_value='laser',
+            description='rplidar frame id'
+        ),
+
     #    DeclareLaunchArgument(
     #        name='base_serial_port', 
     #        default_value='/dev/ttyACM0',
@@ -107,7 +113,7 @@ def generate_launch_description():
 
         DeclareLaunchArgument(
             name='lidar', 
-            default_value='true',
+            default_value='false',
             description='Launch lidar'
         ),
 
@@ -152,6 +158,9 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(lidar_launch_path),
             condition=IfCondition(LaunchConfiguration("lidar")),
+            launch_arguments={
+                'frame_id': LaunchConfiguration("frame_id")
+            }.items()
         )
         
     ])
