@@ -22,6 +22,9 @@ from launch.conditions import IfCondition, UnlessCondition
 
 
 def generate_launch_description():
+
+    video_path = '/dev/video0'
+
     sensors_launch_path = PathJoinSubstitution(
         [FindPackageShare('leogv_bringup'), 'launch', 'sensors.launch.py']
     )
@@ -49,13 +52,16 @@ def generate_launch_description():
     extra_launch_path = PathJoinSubstitution(
         [FindPackageShare('leogv_bringup'), 'launch', 'extra.launch.py']
     )
+    lidar_launch_path = PathJoinSubstitution(
+        [FindPackageShare('rplidar_ros'),'launch', 'rplidar_a1_launch.py']
+    )
 
     return LaunchDescription([
-        DeclareLaunchArgument(
-            name='custom_robot', 
-            default_value='false',
-            description='Use custom robot'
-        ),
+    #    DeclareLaunchArgument(
+    #        name='custom_robot', 
+    #        default_value='false',
+    #        description='Use custom robot'
+    #    ),
 
         DeclareLaunchArgument(
             name='extra', 
@@ -64,22 +70,28 @@ def generate_launch_description():
         ),
 
         DeclareLaunchArgument(
-            name='base_serial_port', 
-            default_value='/dev/ttyACM0',
-            description='Linorobot Base Serial Port'
+            name='description', 
+            default_value='true',
+            description='Launch description launch file'
         ),
 
-        DeclareLaunchArgument(
-            name='micro_ros_transport',
-            default_value='serial',
-            description='micro-ROS transport'
-        ),
+    #    DeclareLaunchArgument(
+    #        name='base_serial_port', 
+    #        default_value='/dev/ttyACM0',
+    #        description='Linorobot Base Serial Port'
+    #    ),
 
-        DeclareLaunchArgument(
-            name='micro_ros_port',
-            default_value='8888',
-            description='micro-ROS udp/tcp port number'
-        ),
+    #   DeclareLaunchArgument(
+    #        name='micro_ros_transport',
+    #        default_value='serial',
+    #        description='micro-ROS transport'
+    #    ),
+
+    #    DeclareLaunchArgument(
+    #        name='micro_ros_port',
+    #        default_value='8888',
+    #        description='micro-ROS udp/tcp port number'
+    #    ),
 
         DeclareLaunchArgument(
             name='odom_topic', 
@@ -87,10 +99,16 @@ def generate_launch_description():
             description='EKF out odometry topic'
         ),
         
+    #    DeclareLaunchArgument(
+    #        name='joy', 
+    #        default_value='false',
+    #        description='Use Joystick'
+    #    ),
+
         DeclareLaunchArgument(
-            name='joy', 
-            default_value='false',
-            description='Use Joystick'
+            name='lidar', 
+            default_value='true',
+            description='Launch lidar'
         ),
 
         Node(
@@ -103,14 +121,24 @@ def generate_launch_description():
             ],
             remappings=[("odometry/filtered", LaunchConfiguration("odom_topic"))]
         ),
+    #    Node(
+    #        package='camera_simulator',
+    #        executable='camera_simulator',
+    #        output='screen',
+    #        arguments=[
+    #            '--type', 'video',
+    #            '--path', video_path,
+    #            '--loop'
+    #        ],
+    #    ),
 
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(default_robot_launch_path),
-            condition=UnlessCondition(LaunchConfiguration("custom_robot")),
-            launch_arguments={
-                'base_serial_port': LaunchConfiguration("base_serial_port")
-            }.items()
-        ),
+    #    IncludeLaunchDescription(
+    #        PythonLaunchDescriptionSource(default_robot_launch_path),
+    #        condition=UnlessCondition(LaunchConfiguration("custom_robot")),
+    #        launch_arguments={
+    #            'base_serial_port': LaunchConfiguration("base_serial_port")
+    #        }.items()
+    #    ),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(extra_launch_path),
@@ -118,7 +146,12 @@ def generate_launch_description():
         ),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(custom_robot_launch_path),
-            condition=IfCondition(LaunchConfiguration("custom_robot")),
+            PythonLaunchDescriptionSource(description_launch_path),
+            condition=IfCondition(LaunchConfiguration("description")),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(lidar_launch_path),
+            condition=IfCondition(LaunchConfiguration("lidar")),
         )
+        
     ])
