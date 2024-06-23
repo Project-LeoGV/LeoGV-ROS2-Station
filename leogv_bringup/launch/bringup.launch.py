@@ -22,16 +22,15 @@ from launch.conditions import IfCondition, UnlessCondition
 
 
 def generate_launch_description():
-
     video_path = '/home/nadamamdouh/Videos/Screencasts/RP_Robot.webm' #'/dev/video0'
 
-    sensors_launch_path = PathJoinSubstitution(
-        [FindPackageShare('leogv_bringup'), 'launch', 'sensors.launch.py']
-    )
+#    sensors_launch_path = PathJoinSubstitution(
+#        [FindPackageShare('leogv_bringup'), 'launch', 'sensors.launch.py']
+#    )
 
-    joy_launch_path = PathJoinSubstitution(
-        [FindPackageShare('leogv_bringup'), 'launch', 'joy_teleop.launch.py']
-    )
+#    joy_launch_path = PathJoinSubstitution(
+#        [FindPackageShare('leogv_bringup'), 'launch', 'joy_teleop.launch.py']
+#    )
 
     description_launch_path = PathJoinSubstitution(
         [FindPackageShare('leogv_description'), 'launch', 'description.launch.py']
@@ -41,13 +40,13 @@ def generate_launch_description():
         [FindPackageShare("leogv_base"), "config", "ekf.yaml"]
     )
 
-    default_robot_launch_path = PathJoinSubstitution(
-        [FindPackageShare('leogv_bringup'), 'launch', 'default_robot.launch.py']
-    )
+#    default_robot_launch_path = PathJoinSubstitution(
+#        [FindPackageShare('leogv_bringup'), 'launch', 'default_robot.launch.py']
+#    )
 
-    custom_robot_launch_path = PathJoinSubstitution(
-        [FindPackageShare('leogv_bringup'), 'launch', 'custom_robot.launch.py']
-    )
+#    custom_robot_launch_path = PathJoinSubstitution(
+#        [FindPackageShare('leogv_bringup'), 'launch', 'custom_robot.launch.py']
+#    )
 
     extra_launch_path = PathJoinSubstitution(
         [FindPackageShare('leogv_bringup'), 'launch', 'extra.launch.py']
@@ -127,6 +126,19 @@ def generate_launch_description():
             ],
             remappings=[("odometry/filtered", LaunchConfiguration("odom_topic"))]
         ),
+
+        Node(
+            package='odrive_driver',
+            executable='odrive_node',
+            output='screen'
+        ),
+
+        Node(
+            package='two_wheel_demo',
+            executable='run_demo',
+            output='screen'
+        ),
+
     #    Node(
     #        package='camera_simulator',
     #        executable='camera_simulator',
