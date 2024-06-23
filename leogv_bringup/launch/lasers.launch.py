@@ -81,7 +81,7 @@ def generate_launch_description():
 
         DeclareLaunchArgument(
             name='frame_id', 
-            default_value='laser',
+            default_value='laser_frame',
             description='Laser Frame ID'
         ),
 
