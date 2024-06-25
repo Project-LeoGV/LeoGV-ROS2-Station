@@ -10,7 +10,9 @@
             <geometry>
                 <box size="0.06 0.15 0.15" />
             </geometry>
-            <material name="white" />
+            <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
         </visual>
         <visual>
             <origin xyz="0.03 0 0" rpy="0 ${pi/2} 0"/>

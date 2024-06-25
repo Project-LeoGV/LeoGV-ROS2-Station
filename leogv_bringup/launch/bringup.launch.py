@@ -22,8 +22,6 @@ from launch.conditions import IfCondition, UnlessCondition
 
 
 def generate_launch_description():
-    video_path = '/home/nadamamdouh/Videos/Screencasts/RP_Robot.webm' #'/dev/video0'
-
 #    sensors_launch_path = PathJoinSubstitution(
 #        [FindPackageShare('leogv_bringup'), 'launch', 'sensors.launch.py']
 #    )
@@ -78,6 +76,12 @@ def generate_launch_description():
             name='frame_id', 
             default_value='laser',
             description='rplidar frame id'
+        ),
+        
+        DeclareLaunchArgument(
+            name='serial_port',
+            default_value='/dev/ttyUSB0',
+            description='Specifying usb port to connected lidar'
         ),
 
     #    DeclareLaunchArgument(
@@ -139,16 +143,12 @@ def generate_launch_description():
             output='screen'
         ),
 
-    #    Node(
-    #        package='camera_simulator',
-    #        executable='camera_simulator',
-    #        output='screen',
-    #        arguments=[
-    #            '--type', 'video',
-    #            '--path', video_path,
-    #            '--loop'
-    #        ],
-    #    ),
+        Node(
+            package='pkg_py_autonomous_pi',
+            executable='autonomous_pi',
+            output='screen'
+        ),
+
 
     #    IncludeLaunchDescription(
     #        PythonLaunchDescriptionSource(default_robot_launch_path),
@@ -171,7 +171,8 @@ def generate_launch_description():
             PythonLaunchDescriptionSource(lidar_launch_path),
             condition=IfCondition(LaunchConfiguration("lidar")),
             launch_arguments={
-                'frame_id': LaunchConfiguration("frame_id")
+                'frame_id': LaunchConfiguration("frame_id"),
+                'serial_port': LaunchConfiguration("serial_port")
             }.items()
         )
         
