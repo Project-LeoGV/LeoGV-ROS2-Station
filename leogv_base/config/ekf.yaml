@@ -165,12 +165,12 @@ ekf_filter_node:
         # twist0_queue_size: 3
         # twist0_rejection_threshold: 2.0
 
-        imu0: imu/data
-        imu0_config: [false, false, false,
-                      false, false, false,
-                      false, false, false,
-                      false, false, true,
-                      false, false, false]
+        # imu0: imu/data
+        # imu0_config: [false, false, false,
+        #               false, false, false,
+        #               false, false, false,
+        #               false, false, true,
+        #               false, false, false]
         # imu0_differential: false
         # imu0_relative: true
         # imu0_queue_size: 5
